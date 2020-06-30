@@ -1,7 +1,11 @@
 import java.io.InputStream;
 
 import download.impl.ImageDownload;
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import store.impl.FileStore;
+import util.HttpClientUtil;
 
 /**
  * @Author bill
@@ -9,10 +13,8 @@ import store.impl.FileStore;
  **/
 public class Main {
   public static void main(String[] args) {
-    ImageDownload imageDownload = new ImageDownload(
-      "https://static.veer.com/veer/static/resources/keyword/2020-02-19/533ed30de651499da1c463bca44b6d60.jpg");
-    InputStream downloadInputStream = imageDownload.download();
-    FileStore fileStore = new FileStore(downloadInputStream);
-    fileStore.save("C:\\Users\\asus\\Desktop", "testImage.jpg");
+    HttpClient httpClient = HttpClients.createDefault();
+    String html = HttpClientUtil.getHtml(httpClient, "", "http://news.baidu.com/");
+    System.out.println(html);
   }
 }
